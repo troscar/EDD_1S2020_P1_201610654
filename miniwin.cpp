@@ -270,7 +270,8 @@ LRESULT CALLBACK WindowProcedure (HWND hWnd,
       // NUMEROS DEL KEYPAD
       	push_it |= (wParam >= 96 && wParam <= 150);      	
       // PARA EL PUNTO Y PARA LA COMA Y PUNTO-COMA
-      	push_it |= (wParam == VK_OEM_PERIOD || wParam == VK_OEM_COMMA || VK_DECIMAL); 
+      	push_it |= (wParam == VK_OEM_PERIOD  || VK_DECIMAL); 
+      	push_it |=  wParam == VK_OEM_COMMA;
       // PARA EL ESPACIO HACIA ATRAS 
 		push_it |= wParam == VK_BACK; 
 		
@@ -320,6 +321,7 @@ int tecla() {
     case VK_ESCAPE: ret = ESCAPE; break;
     case VK_SPACE:  ret = ESPACIO; break;
     case VK_RETURN: ret = RETURN; break;
+    case VK_CONTROL: ret = CONTROL; break;
     case VK_F1:     ret = F1; break;
     case VK_F2:     ret = F2; break;
     case VK_F3:     ret = F3; break;
@@ -598,12 +600,14 @@ void _handlekey(KeySym key) {
    case XK_Right:  _teclas.push(miniwin::DERECHA); break;
    case XK_Up:     _teclas.push(miniwin::ARRIBA); break;
    case XK_Down:   _teclas.push(miniwin::ABAJO); break;
+   case VK_CONTROL:   _teclas.push(miniwin::CONTROL); break;
    default: {
       if ((key >= int('0') && key <= int('9')) ||
-          (key >= int('A') && key <= int('Z'))) {
+          (key >= int('A') && key <= int('Z'))) ||
+		  (key >= int('a') && key <= int('z')) {
          _teclas.push(key);
-      } else if (key >= int('a') && key <= int('z')) {
-         _teclas.push(key - 32);
+      //} else if  {
+        // _teclas.push(key -32 );
       } else if (key >= XK_F1 && key <= XK_F10) {
          int dif = key - XK_F1;
          _teclas.push(miniwin::F1 + dif);
