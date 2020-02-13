@@ -320,8 +320,9 @@ int tecla() {
     case VK_DOWN:   ret = ABAJO; break;
     case VK_ESCAPE: ret = ESCAPE; break;
     case VK_SPACE:  ret = ESPACIO; break;
-    case VK_RETURN: ret = RETURN; break;
+    case VK_RETURN: ret = RETURN; break;// ENTER
     case VK_CONTROL: ret = CONTROL; break;
+    case VK_SHIFT: ret = SHIFT; break;
     case VK_F1:     ret = F1; break;
     case VK_F2:     ret = F2; break;
     case VK_F3:     ret = F3; break;
@@ -601,6 +602,7 @@ void _handlekey(KeySym key) {
    case XK_Up:     _teclas.push(miniwin::ARRIBA); break;
    case XK_Down:   _teclas.push(miniwin::ABAJO); break;
    case VK_CONTROL:   _teclas.push(miniwin::CONTROL); break;
+   case VK_SHIFT:   _teclas.push(miniwin::SHIFT); break;
    default: {
       if ((key >= int('0') && key <= int('9')) ||
           (key >= int('A') && key <= int('Z'))) ||

@@ -46,7 +46,7 @@ int main(){
 	
 	vredimensiona(600 , 400);
 	
-	color(ROJO);
+	/*color(ROJO);
 	rectangulo(10,10,590,390);
 	texto(20,30,"Universidad de San Carlos de Guatemala");
 	texto(20,45,"Facultad de Ingeniería");
@@ -59,7 +59,7 @@ int main(){
 	texto(20, 165,"1. Crear archivo");
 	texto(20, 180,"2. Abrir Archivo");
 	texto(20, 195,"3. Salir");
-	
+	*/
 	
 	
 	string entrada = m_entrada.obtenerEntrada("Escribe una cadena : ", false);
@@ -77,10 +77,10 @@ string ManejadorEntrada::obtenerEntrada(const string& intruccion, bool numero) c
 	texto(posx_intruccion,posy_instruccion,intruccion);
 	color(color_entrada);
 	string entrada;
-	for(int simbolo = tecla(); simbolo!= RETURN; simbolo = tecla())
+	for(int simbolo = tecla(); simbolo!= ESCAPE; simbolo = tecla())
 	{
 		simbolo = filtrar_simbolo_miniwin(simbolo);
-		if((simbolo== ESCAPE || simbolo == 8) && !entrada.empty())
+		if((/*simbolo== ESCAPE || */simbolo == 8) && !entrada.empty())
 		{
 			borra();
 			//BORRA EL ULTIMOCARRACTER DE STRING
@@ -96,17 +96,36 @@ string ManejadorEntrada::obtenerEntrada(const string& intruccion, bool numero) c
 			entrada += simbolo;
 			//INGRESA CARACTER A LA LISTA
 		}
-		else if(simbolo == CONTROL)
+		else if(simbolo == SHIFT )
 		{
 			//INGRESA CARACTER de CONTROL 
-			entrada += "@";
-			
+			entrada += ";";		
 		}
-		else if (!numero && (isalnum(simbolo)||simbolo == ESPACIO || simbolo == PUNTO))
+		else if(simbolo == COMA )
+		{
+			//INGRESA CARACTER de CONTROL 
+			entrada += ",";		
+		}
+		else if(simbolo == 49){
+			//OPCION 1
+			entrada += "@1";
+		}
+		else if(simbolo == 50){
+			//OPCION 1
+			entrada += "@2";
+		}
+		else if(simbolo == 51){
+			//OPCION 1
+			entrada += "@3";
+		}
+		else if (!numero && (isalnum(simbolo)|| simbolo == PUNTO))
 		{
 			//INGRESA CARACTER A LA CADENA
 			entrada += simbolo;
 			///INGRESA CARACTER A LA LISTA
+		}else if(simbolo == ESPACIO )
+		{
+			entrada += " ";
 		}
 		if(simbolo != NINGUNA)
 		{
@@ -117,7 +136,7 @@ string ManejadorEntrada::obtenerEntrada(const string& intruccion, bool numero) c
 		
 	color(ROJO);
 	rectangulo(10,10,590,390);
-	texto(20,30,"Universidad de San Carlos de Guatemala");
+	texto(20,30,"Universidad de San Carlos de  Guatemala");
 	texto(20,45,"Facultad de Ingeniería");
 	texto(20,60,"Estructuras de Datos");
 	texto(20,75,"Practica #1");
@@ -143,6 +162,7 @@ int ManejadorEntrada::filtrar_simbolo_miniwin(int simbolo)const
 		return PUNTO;
 	if (simbolo == 188 )
 		return COMA;
+	if (simbolo == 96 )
 	if (simbolo >= 96 && simbolo <= 105)
 		return simbolo - 48;
 	return simbolo;
