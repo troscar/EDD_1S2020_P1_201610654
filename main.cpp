@@ -77,6 +77,7 @@ string ManejadorEntrada::obtenerEntrada(const string& intruccion, bool numero) c
 	texto(posx_intruccion,posy_instruccion,intruccion);
 	color(color_entrada);
 	string entrada;
+	bool Ctrl = false;
 	for(int simbolo = tecla(); simbolo!= ESCAPE; simbolo = tecla())
 	{
 		simbolo = filtrar_simbolo_miniwin(simbolo);
@@ -101,14 +102,20 @@ string ManejadorEntrada::obtenerEntrada(const string& intruccion, bool numero) c
 			//INGRESA CARACTER de CONTROL 
 			entrada += ";";		
 		}
+		else if(simbolo == CONTROL )
+		{
+			//INGRESA CARACTER de CONTROL 
+			Ctrl = true;		
+		}
 		else if(simbolo == COMA )
 		{
 			//INGRESA CARACTER de CONTROL 
 			entrada += ",";		
 		}
-		else if(simbolo == 49){
+		else if(simbolo == 49 && Ctrl){
 			//OPCION 1
 			entrada += "@1";
+			
 		}
 		else if(simbolo == 50){
 			//OPCION 1
